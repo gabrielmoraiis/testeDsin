@@ -17,7 +17,7 @@ Antes de rodar a aplicação, certifique-se de ter as seguintes ferramentas inst
 
 - **Docker**: [Documentação de instalação do Docker](https://docs.docker.com/get-docker/)
 - **Docker Compose**: [Documentação de instalação do Docker Compose](https://docs.docker.com/compose/install/)
-- **JDK 23**: [Download JDK 23](https://jdk.java.net/23/)
+- **JDK 23**: [Download JDK 23](https://www.oracle.com/java/technologies/downloads/)
 - **Apache Maven 3.9.9**: [Download Maven 3.9.9](https://maven.apache.org/download.cgi)
 
 ## Como Executar o Projeto

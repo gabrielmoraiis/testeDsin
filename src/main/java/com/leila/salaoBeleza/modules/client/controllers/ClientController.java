@@ -7,6 +7,8 @@ import com.leila.salaoBeleza.modules.client.ClientEntity;
 import com.leila.salaoBeleza.exceptions.UserFoundException;
 import com.leila.salaoBeleza.modules.client.useCases.CreateClientUseCase;
 import com.leila.salaoBeleza.modules.client.useCases.ProfileClientUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class ClientController {
     private ServicesRepository servicesRepository;
 
     @PostMapping("/")
+    @Tag(name = "Cliente", description = "Informações do cliente")
+    @Operation(summary = "Criação do cliente")
     public ResponseEntity<Object> create(@Valid @RequestBody ClientEntity clientEntity) {
       try{
             var result = this.createClientUseCase.execute(clientEntity);
@@ -44,6 +48,8 @@ public class ClientController {
 
     @GetMapping("/")
     @PreAuthorize("hasRole('CLIENT')")
+    @Tag(name = "Cliente")
+    @Operation(summary = "GET do Cliente")
     public ResponseEntity<Object> get(HttpServletRequest request) {
         var idClient = request.getAttribute("client_id");
         try{
@@ -56,6 +62,8 @@ public class ClientController {
 
     @GetMapping("/services")
     @PreAuthorize("hasRole('CLIENT')")
+    @Tag(name = "Cliente")
+    @Operation(summary = "GET em todos os Serviços")
     public ResponseEntity<List<ServiceDTO>> getAllServices() {
         List<ServicesEntity> services = servicesRepository.findAll();
         List<ServiceDTO> dtos = services.stream().map(service -> {

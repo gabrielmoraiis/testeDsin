@@ -7,6 +7,8 @@ import com.leila.salaoBeleza.modules.agendamento.useCases.GetAppointmentsByPerio
 import com.leila.salaoBeleza.modules.agendamento.useCases.MergeAppointmentUseCase;
 import com.leila.salaoBeleza.modules.agendamento.useCases.UpdateCancelAppointmentByClientUseCase;
 import com.leila.salaoBeleza.providers.JWTClientProvider;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,8 @@ public class AppointmentController {
 
     @PostMapping("/new")
     @PreAuthorize("hasRole('CLIENT')")
+    @Tag(name = "Cliente Agendamento", description = "Criação do Agendamento pelo Cliente")
+    @Operation(summary = "Criação do Agendamento")
     public ResponseEntity<Object> createAppointment(HttpServletRequest request,
                                                     @Valid @RequestBody AppointmentDTO appointmentDTO,
                                                     @RequestParam(value = "mergeWithExisting", required = false) Boolean mergeWithExisting) {
@@ -85,6 +89,8 @@ public class AppointmentController {
 
     @GetMapping("/")
     @PreAuthorize("hasRole('CLIENT')")
+    @Tag(name = "Cliente Agendamento")
+    @Operation(summary = "GET Todos os Agendamentos")
     public ResponseEntity<List<AppointmentEntity>> getAppointments(HttpServletRequest request) {
         Object clientIdObj = request.getAttribute("client_id");
         if (clientIdObj == null) {
@@ -98,6 +104,8 @@ public class AppointmentController {
 
     @GetMapping("/period")
     @PreAuthorize("hasRole('CLIENT')")
+    @Tag(name = "Cliente Agendamento")
+    @Operation(summary = "GET Agendamentos Dentro De Um Periodo")
     public ResponseEntity<List<AppointmentDTO>> getAppointmentsByPeriod(
             HttpServletRequest request,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
@@ -113,8 +121,10 @@ public class AppointmentController {
         return ResponseEntity.ok(appointments);
     }
 
-    @PutMapping("/{appointmentId}/update")
+    @PutMapping("/update/{appointmentId}")
     @PreAuthorize("hasRole('CLIENT')")
+    @Tag(name = "Cliente Agendamento")
+    @Operation(summary = "UPDATE Agendamentos")
     public ResponseEntity<Object> updateAppointment(
             HttpServletRequest request,
             @PathVariable UUID appointmentId,
@@ -134,8 +144,10 @@ public class AppointmentController {
         }
     }
 
-    @DeleteMapping("/{appointmentId}/cancel")
+    @DeleteMapping("/cancel/{appointmentId}")
     @PreAuthorize("hasRole('CLIENT')")
+    @Tag(name = "Cliente Agendamento")
+    @Operation(summary = "DELETE Agendamento")
     public ResponseEntity<Object> cancelAppointment(
             HttpServletRequest request,
             @PathVariable UUID appointmentId) {

@@ -3,6 +3,8 @@ package com.leila.salaoBeleza.modules.admin.controllers;
 import com.leila.salaoBeleza.modules.admin.dto.CreateServiceDTO;
 import com.leila.salaoBeleza.modules.admin.entities.ServicesEntity;
 import com.leila.salaoBeleza.modules.admin.useCases.CreateServicesUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class ServicesController {
 
     @PostMapping("/")
     @PreAuthorize( "hasRole('ADMIN')")
+    @Tag(name = "Admin")
+    @Operation(summary = "Criação dos Serviços")
     public ServicesEntity create(@Valid @RequestBody CreateServiceDTO createServiceDTO, HttpServletRequest request){
         var adminId = request.getAttribute("admin_id");
 

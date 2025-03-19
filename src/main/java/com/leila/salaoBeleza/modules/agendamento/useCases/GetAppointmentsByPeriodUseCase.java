@@ -19,7 +19,7 @@ public class GetAppointmentsByPeriodUseCase {
     private AppointmentRepository appointmentRepository;
 
     public List<AppointmentDTO> execute(UUID clientId, LocalDateTime startDate, LocalDateTime endDate) {
-        List<AppointmentEntity> entities = appointmentRepository.findByClientIdAndCreatedAtBetween(clientId, startDate, endDate);
+        List<AppointmentEntity> entities = appointmentRepository.findByClientIdAndAppointmentDateBetween(clientId, startDate, endDate);
         return entities.stream().map(entity -> {
             AppointmentDTO dto = new AppointmentDTO();
             dto.setId(entity.getId());

@@ -68,6 +68,7 @@ public class UpdateCancelAppointmentByClientUseCase {
     public void cancelAppointment(UUID appointmentId, UUID clientId) throws Exception {
         AppointmentEntity appointment = getAppointmentForClient(appointmentId, clientId);
 
+        System.out.println(appointmentId);
         long diffDays = Duration.between(LocalDateTime.now(), appointment.getAppointmentDate()).toDays();
         if (diffDays < 2) {
             throw new Exception("Não é possível cancelar o agendamento online, pois faltam menos de 2 dias. "

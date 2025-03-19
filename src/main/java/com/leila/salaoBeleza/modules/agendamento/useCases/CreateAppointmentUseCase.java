@@ -9,11 +9,7 @@ import com.leila.salaoBeleza.modules.client.ClientEntity;
 import com.leila.salaoBeleza.modules.client.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service

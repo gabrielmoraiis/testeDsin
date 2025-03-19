@@ -5,8 +5,8 @@ import com.leila.salaoBeleza.modules.agendamento.entities.AppointmentEntity;
 import com.leila.salaoBeleza.modules.agendamento.entities.UpdateAppointmentAdminDTO;
 import com.leila.salaoBeleza.modules.agendamento.repositories.AppointmentRepository;
 import com.leila.salaoBeleza.modules.agendamento.useCases.UpdateAppointmentByAdminUseCase;
-import com.leila.salaoBeleza.providers.JWTClientProvider;
-import jakarta.servlet.http.HttpServletRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,14 +27,18 @@ public class AppointmentAdminController {
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
+    @Tag(name = "Admin Agendamento")
+    @Operation(summary = "Lista de Agendamentos")
     public ResponseEntity<List<AppointmentDTO>> getAllAppointments() {
         List<AppointmentEntity> entities = appointmentRepository.listAllAppointments();
         List<AppointmentDTO> dtos = entities.stream().map(updateAppointmentByAdminUseCase::convertToDTO).collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
 
-    @PutMapping("/{appointmentId}/update")
+    @PutMapping("update/{appointmentId}")
     @PreAuthorize( "hasRole('ADMIN')")
+    @Tag(name = "Admin Agendamento")
+    @Operation(summary = "Atualizar um Agendamento")
     public ResponseEntity<Object> updateAppointmentByAdmin(
             @PathVariable UUID appointmentId,
             @RequestBody UpdateAppointmentAdminDTO updateDTO ){
@@ -46,8 +50,10 @@ public class AppointmentAdminController {
         }
     }
 
-    @DeleteMapping("/{appointmentId}/delete")
+    @DeleteMapping("delete/{appointmentId}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Tag(name = "Admin Agendamento")
+    @Operation(summary = "Deletar um Agendamento")
     public ResponseEntity<Object> deleteAppointment(@PathVariable UUID appointmentId) {
         try {
             appointmentRepository.deleteById(appointmentId);

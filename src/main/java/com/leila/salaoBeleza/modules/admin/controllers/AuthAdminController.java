@@ -2,6 +2,8 @@ package com.leila.salaoBeleza.modules.admin.controllers;
 
 import com.leila.salaoBeleza.modules.admin.dto.AuthAdminDTO;
 import com.leila.salaoBeleza.modules.admin.useCases.AuthAdminUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ public class AuthAdminController {
     private AuthAdminUseCase authAdminUseCase;
 
     @PostMapping("/auth")
+    @Tag(name = "Admin")
+    @Operation(summary = "Autenticação do Admin")
     public ResponseEntity<Object> create(@RequestBody AuthAdminDTO authAdminDTO) {
 
         try {
